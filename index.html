@@ -4,11 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Burayd Khan</title>
-    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/chessboard-element?module"></script>
+    <style>
+        :root {
+            --bg-dark: #161512;
+            --panel-bg: #262421;
+            --accent: #95bb4a; /* Classic Chess.com Green */
+            --text: #bababa;
+            --light-square: #dee3e6;
+            --dark-square: #8ca2ad;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            background: var(--panel-bg);
+            border-bottom: 2px solid #333;
+            margin-bottom: 30px;
+        }
+
+        h1 { margin: 0; color: white; letter-spacing: 2px; }
+
+        .main-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            width: 90%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Chess Board Styling */
+        .board-wrapper {
+            flex: 1;
+            min-width: 320px;
+            max-width: 600px;
+        }
+
+        chess-board {
+            border: 4px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Sidebar UI */
+        .sidebar {
+            flex: 0 1 300px;
+            background: var(--panel-bg);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .stats-box {
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.8; }
+
+        .move-history {
+            height: 200px;
+            background: #1e1e1e;
+            margin-top: 15px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.9em;
+            overflow-y: auto;
+        }
+
+        footer { margin-top: auto; padding: 20px; font-size: 0.8em; }
+    </style>
 </head>
 <body>
-    <h1>BURAYD KHAN</h1>
 
-    <script src="script.js"></script>
+    <header>
+        <h1>♚ CHESS PORTFOLIO</h1>
+    </header>
+
+    <div class="main-container">
+        <div class="board-wrapper">
+            <chess-board id="board" position="start" draggable-pieces></chess-board>
+        </div>
+
+        <div class="sidebar">
+            <div class="stats-box">
+                <h3>Player Profile</h3>
+                <p>Rating: <strong>1850</strong></p>
+                <p>Status: <span style="color: var(--accent)">● Online</span></p>
+            </div>
+
+            <button class="btn" onclick="resetBoard()">Reset Position</button>
+            <button class="btn" style="margin-top: 10px; background: #444;" onclick="flipBoard()">Flip Board</button>
+
+            <div class="move-history" id="history">
+                1. e4 e5 <br>
+                2. Nf3 Nc6 <br>
+                3. Bb5 a6 <br>
+                <i>Move pieces on the left to test...</i>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Built with HTML/CSS/JS for GitHub Pages
+    </footer>
+
+    <script>
+        const board = document.getElementById('board');
+        const history = document.getElementById('history');
+
+        function resetBoard() {
+            board.setPosition('start');
+            history.innerHTML = "Board reset. Ready for a new game.";
+        }
+
+        function flipBoard() {
+            board.orientation = board.orientation === 'white' ? 'black' : 'white';
+        }
+
+        // Listen for move events to update the UI
+        board.addEventListener('change', (e) => {
+            console.log("Position changed!");
+            // You could integrate chess.js here to validate moves
+        });
+    </script>
 </body>
 </html>
