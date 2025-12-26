@@ -3,155 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burayd Khan</title>
+    <title>Burayd Khan| GitHub IO</title>
     <script type="module" src="https://unpkg.com/chessboard-element?module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <style>
         :root {
-            --bg-dark: #161512;
-            --panel-bg: #262421;
-            --accent: #95bb4a; /* Classic Chess.com Green */
-            --text: #bababa;
-            --light-square: #dee3e6;
-            --dark-square: #8ca2ad;
+            --bg: #161512;
+            --accent: #95bb4a;
+            --timer-bg: #262421;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
         }
 
-        header {
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-            background: var(--panel-bg);
-            border-bottom: 2px solid #333;
-            margin-bottom: 30px;
-        }
-
-        h1 { margin: 0; color: white; letter-spacing: 2px; }
-
-        .main-container {
+        /* Container to keep everything centered and aligned */
+        .game-container {
             display: flex;
-            gap: 20px;
-            max-width: 1000px;
-            width: 90%;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            width: 90vw;
+            max-width: 550px;
         }
 
-        /* Chess Board Styling */
-        .board-wrapper {
-            flex: 1;
-            min-width: 320px;
-            max-width: 600px;
+        /* Timers positioned above the board */
+        .timer-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
-        chess-board {
-            border: 4px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        /* Sidebar UI */
-        .sidebar {
-            flex: 0 1 300px;
-            background: var(--panel-bg);
-            padding: 20px;
+        .timer {
+            background: var(--timer-bg);
+            padding: 10px 20px;
             border-radius: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-family: monospace;
+            font-size: 1.5rem;
+            border: 2px solid transparent;
+            min-width: 80px;
+            text-align: center;
         }
 
-        .stats-box {
-            border-bottom: 1px solid #444;
-            padding-bottom: 15px;
+        .timer.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Board Styling */
+        chess-board {
+            width: 100%;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+            border: 4px solid #222;
+        }
+
+        chess-board::part(highlight) { background-color: rgba(255, 255, 0, 0.3); }
+        .hint-sq { background-color: rgba(0, 0, 0, 0.15); border-radius: 50%; width: 25%; height: 25%; margin: 37.5%; }
+
+        /* Controls below the board */
+        .controls {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .status-text {
             margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: #aaa;
         }
 
         .btn {
-            background: var(--accent);
-            color: white;
+            background: #333;
+            color: #eee;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-            transition: opacity 0.2s;
+            font-size: 0.9rem;
+            transition: background 0.2s;
         }
 
-        .btn:hover { opacity: 0.8; }
-
-        .move-history {
-            height: 200px;
-            background: #1e1e1e;
-            margin-top: 15px;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 0.9em;
-            overflow-y: auto;
-        }
-
-        footer { margin-top: auto; padding: 20px; font-size: 0.8em; }
+        .btn:hover { background: #444; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>♚ CHESS PORTFOLIO</h1>
-    </header>
-
-    <div class="main-container">
-        <div class="board-wrapper">
-            <chess-board id="board" position="start" draggable-pieces></chess-board>
+    <div class="game-container">
+        <div class="timer-row">
+            <div id="timer-black" class="timer">10:00</div>
+            <div id="timer-white" class="timer active">10:00</div>
         </div>
 
-        <div class="sidebar">
-            <div class="stats-box">
-                <h3>Player Profile</h3>
-                <p>Rating: <strong>1850</strong></p>
-                <p>Status: <span style="color: var(--accent)">● Online</span></p>
-            </div>
+        <chess-board id="board" position="start" draggable-pieces></chess-board>
 
-            <button class="btn" onclick="resetBoard()">Reset Position</button>
-            <button class="btn" style="margin-top: 10px; background: #444;" onclick="flipBoard()">Flip Board</button>
-
-            <div class="move-history" id="history">
-                1. e4 e5 <br>
-                2. Nf3 Nc6 <br>
-                3. Bb5 a6 <br>
-                <i>Move pieces on the left to test...</i>
-            </div>
+        <div class="controls">
+            <div id="status" class="status-text">YOUR TURN (WHITE)</div>
+            <button class="btn" onclick="location.reload()">RESTART GAME</button>
         </div>
     </div>
 
-    <footer>
-        Built with HTML/CSS/JS for GitHub Pages
-    </footer>
-
     <script>
         const board = document.getElementById('board');
-        const history = document.getElementById('history');
+        const game = new Chess();
+        const statusEl = document.getElementById('status');
+        
+        let whiteTime = 600, blackTime = 600;
+        let timerInterval = null;
 
-        function resetBoard() {
-            board.setPosition('start');
-            history.innerHTML = "Board reset. Ready for a new game.";
+        function formatTime(s) {
+            const mins = Math.floor(s / 60);
+            const secs = s % 60;
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        function flipBoard() {
-            board.orientation = board.orientation === 'white' ? 'black' : 'white';
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (game.turn() === 'w') {
+                    whiteTime--;
+                    document.getElementById('timer-white').innerText = formatTime(whiteTime);
+                    document.getElementById('timer-white').classList.add('active');
+                    document.getElementById('timer-black').classList.remove('active');
+                } else {
+                    blackTime--;
+                    document.getElementById('timer-black').innerText = formatTime(blackTime);
+                    document.getElementById('timer-black').classList.add('active');
+                    document.getElementById('timer-white').classList.remove('active');
+                }
+                if (whiteTime <= 0 || blackTime <= 0) endGame("TIME EXPIRED");
+            }, 1000);
         }
 
-        // Listen for move events to update the UI
-        board.addEventListener('change', (e) => {
-            console.log("Position changed!");
-            // You could integrate chess.js here to validate moves
+        // --- Move Hints ---
+        board.addEventListener('mouseover-square', (e) => {
+            const moves = game.moves({ square: e.detail.square, verbose: true });
+            moves.forEach(m => {
+                const el = board.shadowRoot.querySelector(`[part~="square-${m.to}"]`);
+                if (el && !el.querySelector('.hint-sq')) {
+                    const dot = document.createElement('div');
+                    dot.className = "hint-sq";
+                    el.appendChild(dot);
+                }
+            });
         });
+
+        board.addEventListener('mouseout-square', () => {
+            board.shadowRoot.querySelectorAll('.hint-sq').forEach(el => el.remove());
+        });
+
+        // --- Core Logic ---
+        board.addEventListener('drop', (e) => {
+            const move = game.move({ from: e.detail.source, to: e.detail.target, promotion: 'q' });
+            if (move === null) {
+                e.detail.setAction('snapback');
+                return;
+            }
+            startTimer();
+            updateStatus();
+            window.setTimeout(makeBotMove, 400);
+        });
+
+        function updateStatus() {
+            if (game.in_checkmate()) endGame("CHECKMATE");
+            else if (game.in_draw()) endGame("DRAW");
+            else statusEl.innerText = game.turn() === 'w' ? "YOUR TURN" : "BOT IS THINKING...";
+        }
+
+        function endGame(msg) {
+            clearInterval(timerInterval);
+            statusEl.innerText = msg;
+            board.setAttribute('draggable-pieces', 'false');
+        }
+
+        // Simple Bot
+        function makeBotMove() {
+            if (game.game_over()) return;
+            const moves = game.moves();
+            
+            // Basic Material Evaluation
+            let bestMove = moves[0];
+            let bestValue = 9999;
+
+            moves.forEach(m => {
+                game.move(m);
+                let score = 0;
+                game.board().forEach(row => {
+                    row.forEach(p => {
+                        if (p) {
+                            const val = {p:1, n:3, b:3, r:5, q:9, k:100}[p.type];
+                            score += (p.color === 'w' ? val : -val);
+                        }
+                    });
+                });
+                if (score < bestValue) { bestValue = score; bestMove = m; }
+                game.undo();
+            });
+
+            game.move(bestMove);
+            board.setPosition(game.fen());
+            updateStatus();
+        }
     </script>
 </body>
 </html>
