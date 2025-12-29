@@ -3,31 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | Burayd Khan</title>
+    <title>Portfolio | Burayd Khan</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 2rem; }
-        header { text-align: center; padding: 2rem 0; }
-        img { border-radius: 50%; width: 150px; height: 150px; object-fit: cover; }
-        .links a { margin: 0 10px; color: #0366d6; text-decoration: none; font-weight: bold; }
-        .links a:hover { text-decoration: underline; }
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            padding: 5px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            letter-spacing: -0.025em;
+        }
+
+        #typewriter {
+            color: var(--primary);
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+
+        p.bio {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Simple cursor blink for JS effect */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: var(--primary);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://github.com/yourusername.png" alt="Profile Picture">
-        <h1>Hi, I'm Burayd Khan 👋</h1>
-        <p>Software Developer | Tech Enthusiast | Explorer</p>
-    </header>
 
-    <section>
-        <h2>About Me</h2>
-        <p>I am a college student with passion for compsci, always trying to build something different and creative.</p>
-    </section>
+    <div class="container">
+        <img src="https://github.com/yourusername.png" alt="Profile Image">
+        
+        <h1>Hi, I'm Burayd Khan</h1>
+        <div id="typewriter-container">
+            <span id="typewriter"></span><span class="cursor">|</span>
+        </div>
 
-    <section class="links">
-        <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
-        <a href="https://twitter.com/yourhandle">Twitter</a>
-        <a href="mailto:your@email.com">Email Me</a>
-    </section>
+        <p class="bio">
+            I build digital experiences and explore the intersection of design and code. Currently focused on React, UI/UX, and open-source.
+        </p>
+
+        <div class="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT TYPEWRITER EFFECT ---
+        const textElement = document.getElementById('typewriter');
+        const phrases = [
+            "Software Developer",
+            "UI Designer",
+            "Problem Solver",
+            "Chess Player"
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 150;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at the end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // Start the effect
+        window.onload = type;
+    </script>
 </body>
 </html>
