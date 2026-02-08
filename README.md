@@ -58,8 +58,6 @@ Here are some of the main technologies you'll see used throughout the site and m
 ![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)  
 ![React Badge](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
 
-*(Add more badges for other tools you use)*
-
 ---
 
 ## 📌 Why This Matters
