@@ -14,17 +14,16 @@ This GitHub Pages site is a personal portfolio that introduces visitors to:
 - 📂 **Projects** — Highlights of my work with quick descriptions and tech tags.  
 - 📬 **Contact Info** — How to reach out for collaborations or inquiries.
 
-It’s designed with a futuristic aesthetic and clean layout to reflect my coding philosophy and creative direction. :contentReference[oaicite:0]{index=0}
-
+It’s designed with a futuristic aesthetic and clean layout to reflect my coding philosophy and creative direction. 
 ---
 
 ## 🧠 Core Sections
 
 ### 🧑‍💻 Home
-A quick intro that sets the tone and gives an overview of who I am — a coder with a strategist’s mindset. :contentReference[oaicite:1]{index=1}
+A quick intro that sets the tone and gives an overview of who I am — a coder with a strategist’s mindset.
 
 ### 📖 About
-A deeper snapshot of my background, interests, and development approach. :contentReference[oaicite:2]{index=2}
+A deeper snapshot of my background, interests, and development approach. 
 
 ### 🛠️ Skills
 A curated list of technologies and tools that I use regularly:
@@ -33,19 +32,18 @@ A curated list of technologies and tools that I use regularly:
 - CSS3  
 - JavaScript  
 - React  
-- Strategy-driven problem solving :contentReference[oaicite:3]{index=3}
+- Strategy-driven problem solving 
 
 ### 📂 Projects
 Highlights of select work, such as:
 
-- **Project Alpha** — A 3D data visualization tool built with React + D3. :contentReference[oaicite:4]{index=4}
-- **Neural Chess** — AI-powered chess engine with real-time move guidance. :contentReference[oaicite:5]{index=5}
-- **CyberTask** — Gamified task manager built with Flutter + Firebase. :contentReference[oaicite:6]{index=6}
-
-Each project includes tech tags and links to demo/live code where available. :contentReference[oaicite:7]{index=7}
+- **Project Alpha** — A 3D data visualization tool built with React + D3.
+- **Neural Chess** — AI-powered chess engine with real-time move guidance. 
+- **CyberTask** — Gamified task manager built with Flutter + Firebase.
+Each project includes tech tags and links to demo/live code where available.
 
 ### 📬 Contact
-Easy ways for visitors to connect or start a collaboration. :contentReference[oaicite:8]{index=8}
+Easy ways for visitors to connect or start a collaboration. 
 
 ---
 
