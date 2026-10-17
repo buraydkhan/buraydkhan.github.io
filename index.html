@@ -1,228 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Burayd Khan - Software Engineer & Strategist. A portfolio showcasing coding projects, skills, and a passion for technology and chess.">
-    <meta name="keywords"
-        content="Burayd Khan, Software Engineer, Web Developer, Portfolio, Coding, Chess, Sci-Fi, Strategy">
-    <meta name="author" content="Burayd Khan">
-    <meta property="og:title" content="Burayd Khan | Coder & Strategist">
-    <meta property="og:description" content="Strategizing Code like a Grandmaster. check out my projects and skills.">
-    <meta property="og:image" content="profile_pic_futuristic.png">
-    <meta property="og:url" content="https://buraydkhan.github.io">
-    <title>Burayd Khan | Coder & Strategist</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Cyberpunk Portfolio | Code. Learn. Break. Secure. Repeat.</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#0a0a0c',
+                            gray: '#121217',
+                            cyan: '#00f3ff',
+                            magenta: '#ff003c',
+                            yellow: '#fcee0a',
+                            green: '#00ff66'
+                        }
+                    },
+                    fontFamily: {
+                        cyber: ['Orbitron', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles */
+        body {
+            background-color: #0a0a0c;
+            color: #00f3ff;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Glitch Effect */
+        .glitch-wrapper {
+            position: relative;
+        }
+        .glitch {
+            position: relative;
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00f3ff, 0 0 40px #00f3ff;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff003c;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00f3ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(32px, 9999px, 28px, 0); }
+            20% { clip: rect(13px, 9999px, 83px, 0); }
+            40% { clip: rect(64px, 9999px, 12px, 0); }
+            60% { clip: rect(4px, 9999px, 73px, 0); }
+            80% { clip: rect(92px, 9999px, 10px, 0); }
+            100% { clip: rect(38px, 9999px, 55px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(15px, 9999px, 2px, 0); }
+            40% { clip: rect(87px, 9999px, 54px, 0); }
+            60% { clip: rect(21px, 9999px, 33px, 0); }
+            80% { clip: rect(54px, 9999px, 89px, 0); }
+            100% { clip: rect(12px, 9999px, 21px, 0); }
+        }
+
+        /* Cyberpunk Borders & Cards */
+        .cyber-card {
+            position: relative;
+            background: rgba(18, 18, 23, 0.8);
+            border: 1px solid #00f3ff;
+            border-left: 4px solid #ff003c;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+            transition: all 0.3s ease;
+        }
+        .cyber-card:hover {
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .cyber-tag {
+            background: transparent;
+            border: 1px solid #fcee0a;
+            color: #fcee0a;
+            box-shadow: 0 0 5px rgba(252, 238, 10, 0.2);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: all 0.3s ease;
+        }
+        .cyber-tag:hover {
+            background: #fcee0a;
+            color: #0a0a0c;
+            box-shadow: 0 0 15px rgba(252, 238, 10, 0.8);
+            text-shadow: none;
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: rgba(10, 10, 12, 0.9);
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+        .terminal-header {
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+        }
+        .blinking-cursor::after {
+            content: '█';
+            animation: blink 1s step-end infinite;
+            color: #00f3ff;
+            margin-left: 5px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Neon Text Utilities */
+        .text-neon-cyan { text-shadow: 0 0 5px #00f3ff, 0 0 10px #00f3ff; }
+        .text-neon-magenta { text-shadow: 0 0 5px #ff003c, 0 0 10px #ff003c; }
+        .text-neon-yellow { text-shadow: 0 0 5px #fcee0a, 0 0 10px #fcee0a; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #00f3ff; }
+        ::-webkit-scrollbar-thumb:hover { background: #ff003c; }
+    </style>
 </head>
+<body class="font-mono text-cyber-cyan min-h-screen flex flex-col">
 
-<body>
+    <!-- Global Scanlines Overlay -->
+    <div class="scanlines"></div>
 
-    <div class="background-wrapper">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="chess-grid-overlay"></div>
-    </div>
+    <main class="relative z-10 container mx-auto px-4 py-12 flex-grow max-w-6xl">
+        
+        <!-- Hero Section -->
+        <header class="text-center py-20 border-b border-cyber-cyan/30 relative mb-16">
+            <!-- Decorative corner accents -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyber-magenta"></div>
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyber-yellow"></div>
+            <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyber-cyan"></div>
+            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyber-magenta"></div>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <span class="bracket">&lt;</span>BK<span class="slash">/</span><span class="bracket">&gt;</span>
+            <h1 class="font-cyber text-4xl md:text-6xl font-black uppercase tracking-widest mb-6 glitch-wrapper">
+                <span class="glitch" data-text="Code. Learn. Break. Secure. Repeat.">
+                    Code. Learn. Break. Secure. Repeat.
+                </span>
+            </h1>
+            <p class="text-lg md:text-xl text-cyber-yellow tracking-wide mt-8">
+                <span class="inline-block mx-2">💻 Computer Science Student</span> • 
+                <span class="inline-block mx-2">🛡️ Ethical Hacking</span> • 
+                <span class="inline-block mx-2">🐍 Python</span> • 
+                <span class="inline-block mx-2">🐧 Linux</span> • 
+                <span class="inline-block mx-2">♟ Chess</span>
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- About Me - Terminal Style -->
+            <section class="lg:col-span-2 terminal p-1 relative rounded-sm">
+                <div class="terminal-header p-2 flex items-center justify-between">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-cyber-magenta"></div>
+                        <div class="w-3 h-3 rounded-full bg-cyber-yellow"></div>
+                        <div class="w-3 h-3 rounded-full bg-cyber-green"></div>
+                    </div>
+                    <div class="text-xs text-gray-400 font-cyber">root@sys:~/# about_me.sh</div>
+                </div>
+                <div class="p-6 text-sm md:text-base space-y-4 text-gray-300">
+                    <p class="text-cyber-green">> Executing about_me script...</p>
+                    <ul class="space-y-3 list-none">
+                        <li><span class="text-cyber-magenta">[+]</span> 🛡️ Learning Ethical Hacking & Penetration Testing</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🌱 Currently studying Computer Science</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🐍 Python Developer</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🧠 Exploring Artificial Intelligence & Data Science</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🐧 Linux Enthusiast</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🌐 Learning Networking</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 💻 Interested in Open Source</li>
+                        <li><span class="text-cyber-magenta">[+]</span> ♟ Chess Player</li>
+                        <li><span class="text-cyber-magenta">[+]</span> 🚀 Goal: Become a Cybersecurity Engineer & AI Developer</li>
+                    </ul>
+                    <p class="mt-4 pt-4 border-t border-gray-800 text-cyber-yellow">
+                        > <span class="font-bold">⚡ Fun Fact:</span> I love breaking things to understand how they work.<span class="blinking-cursor"></span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <div class="space-y-12">
+                
+                <!-- Currently Learning Section -->
+                <section>
+                    <h2 class="font-cyber text-2xl font-bold text-cyber-yellow mb-6 uppercase tracking-wider flex items-center">
+                        <span class="bg-cyber-yellow w-2 h-6 mr-3 block"></span> Currently Learning
+                    </h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Ethical Hacking</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Networking</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Linux Admin</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Artificial Intelligence</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Data Science</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Penetration Testing</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Machine Learning</span>
+                        <span class="cyber-tag px-4 py-2 text-sm uppercase cursor-default">Bash Scripting</span>
+                    </div>
+                </section>
+
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-item" data-text="Home">Home</a></li>
-                <li><a href="#about" class="nav-item" data-text="About">About</a></li>
-                <li><a href="#skills" class="nav-item" data-text="Skills">Skills</a></li>
-                <li><a href="#projects" class="nav-item" data-text="Projects">Projects</a></li>
-                <li><a href="#contact" class="nav-item" data-text="Contact">Contact</a></li>
-            </ul>
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+        </div>
 
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-content">
-                <div class="profile-frame">
-                    <div class="scan-line"></div>
-                    <img src="profile.jpg" alt="Burayd Khan - Futuristic Profile" class="profile-pic">
-                    <div class="rotating-border"></div>
+        <!-- What I Love Section -->
+        <section class="mt-16">
+            <h2 class="font-cyber text-2xl font-bold text-cyber-cyan mb-8 uppercase tracking-wider flex items-center text-neon-cyan">
+                <span class="bg-cyber-cyan w-2 h-6 mr-3 block"></span> What I Love
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">🛡️</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Cybersecurity</span>
                 </div>
-                <h1 class="glitch-text" data-text="Burayd Khan">Burayd Khan</h1>
-                <div class="terminal-window">
-                    <div class="terminal-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                        <span class="title">status.log</span>
-                    </div>
-                    <div class="terminal-body">
-                        <p class="command-line"><span class="prompt">user@system:~$</span> <span
-                                class="typing-effect">Strategizing Code like a Grandmaster...</span><span
-                                class="cursor">_</span></p>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group" style="border-left-color: #fcee0a;">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">🤖</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">AI</span>
                 </div>
-                <a href="#projects" class="cta-button">
-                    <span class="btn-content">Initialize Projects</span>
-                    <span class="btn-glitch"></span>
-                </a>
-            </div>
-        </section>
-
-        <section id="about" class="section">
-            <h2 class="section-title"><i class="fas fa-user-astronaut"></i> The Player</h2>
-            <div class="about-container">
-                <div class="about-text glass-card">
-                    <p>Welcome to my digital command center. I am a developer who views every problem as a chess match
-                        against complexity. My mission is to build digital experiences that are not only functional but
-                        futuristic.</p>
-                    <p>With a background in modern web technologies and a passion for sci-fi aesthetics, I checkmate
-                        bugs and deploy strategies that stand the test of time.</p>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group" style="border-left-color: #00f3ff;">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">🐧</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Linux</span>
                 </div>
-            </div>
-        </section>
-
-        <section id="skills" class="section">
-            <h2 class="section-title"><i class="fas fa-microchip"></i> Tech Arsenal</h2>
-            <div class="skills-grid">
-                <!-- Skill items will be populated/styled here -->
-                <div class="skill-card">
-                    <i class="fab fa-html5"></i>
-                    <h3>HTML5</h3>
-                    <div class="skill-bar">
-                        <div class="fill" style="width: 95%"></div>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">💻</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Programming</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-css3-alt"></i>
-                    <h3>CSS3</h3>
-                    <div class="skill-bar">
-                        <div class="fill" style="width: 90%"></div>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group" style="border-left-color: #00f3ff;">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">🌎</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Open Source</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-js"></i>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="fill" style="width: 85%"></div>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group" style="border-left-color: #ff003c;">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">🎮</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Emulation</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fab fa-react"></i>
-                    <h3>React</h3>
-                    <div class="skill-bar">
-                        <div class="fill" style="width: 80%"></div>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group" style="border-left-color: #fcee0a;">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">♟</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Chess</span>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-chess"></i>
-                    <h3>Strategy</h3>
-                    <div class="skill-bar">
-                        <div class="fill" style="width: 100%"></div>
-                    </div>
+                <div class="cyber-card p-4 flex flex-col items-center justify-center text-center group">
+                    <span class="text-3xl mb-2 group-hover:scale-125 transition-transform">📚</span>
+                    <span class="text-sm uppercase font-bold text-gray-200">Learning</span>
                 </div>
-            </div>
-        </section>
-
-        <section id="projects" class="section">
-            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Mission Logs</h2>
-            <div class="projects-grid">
-                <article class="project-card glass-card">
-                    <div class="card-image">
-                        <!-- Placeholder for project image -->
-                        <div class="placeholder-grid"></div>
-                        <i class="fas fa-cube overlay-icon"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Project Alpha</h3>
-                        <p>A nebulous data visualization tool built with React and D3. Visualize your data metrics in a
-                            3D environment.</p>
-                        <div class="tech-tags">
-                            <span>React</span>
-                            <span>D3.js</span>
-                            <span>WebGL</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-small"><i class="fab fa-github"></i> Code</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Live</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card glass-card">
-                    <div class="card-image">
-                        <div class="placeholder-grid"></div>
-                        <i class="fas fa-network-wired overlay-icon"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Neural Chess</h3>
-                        <p>An AI-powered chess engine that analyzes your moves and suggests improvements in real-time.
-                        </p>
-                        <div class="tech-tags">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Socket.io</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-small"><i class="fab fa-github"></i> Code</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Live</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="project-card glass-card">
-                    <div class="card-image">
-                        <div class="placeholder-grid"></div>
-                        <i class="fas fa-mobile-alt overlay-icon"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>CyberTask</h3>
-                        <p>A futuristic task management app with gamification elements to boost your productivity.</p>
-                        <div class="tech-tags">
-                            <span>Flutter</span>
-                            <span>Firebase</span>
-                        </div>
-                        <div class="card-actions">
-                            <a href="#" class="btn-small"><i class="fab fa-github"></i> Code</a>
-                            <a href="#" class="btn-small"><i class="fas fa-external-link-alt"></i> Live</a>
-                        </div>
-                    </div>
-                </article>
             </div>
         </section>
 
-        <section id="contact" class="section">
-            <h2 class="section-title"><i class="fas fa-satellite-dish"></i> Contact Base</h2>
-            <div class="contact-container glass-card">
-                <p>Ready to collaborate? Establish a secure connection.</p>
-                <div class="social-links">
-                    <a href="https://github.com/buraydkhan" target="_blank" class="social-btn"><i
-                            class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/buraydkhan" target="_blank" class="social-btn"><i
-                            class="fab fa-linkedin"></i></a>
-                    <a href="mailto:contact@buraydkhan.com" class="social-btn"><i class="fas fa-envelope"></i></a>
-                </div>
-                <a href="mailto:contact@buraydkhan.com" class="cta-button primary">Initialize Handshake</a>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>© 2026 Burayd Khan. <span class="system-status">System Online <span class="blink">●</span></span></p>
-        </div>
+    <!-- Footer -->
+    <footer class="border-t border-cyber-magenta/30 mt-auto py-6 relative z-10 text-center">
+        <p class="text-sm text-gray-500 uppercase tracking-widest font-cyber">
+            SYSTEM.STATUS <span class="text-cyber-green text-neon-green ml-2">ONLINE</span>
+        </p>
     </footer>
 
-    <script src="script.js"></script>
 </body>
-
 </html>
